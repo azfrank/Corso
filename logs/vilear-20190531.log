@@ -1,0 +1,7 @@
+09:27:20.717 [VILEAR][Thread-39] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2ea6e30c: startup date [Thu May 30 16:43:00 CEST 2019]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@793be5ca
+09:27:20.734 [VILEAR][Thread-39] INFO  o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+09:27:20.739 [VILEAR][Thread-39] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+09:27:20.741 [VILEAR][Thread-39] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+09:27:20.758 [VILEAR][Thread-39] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:27:20.764 [VILEAR][Thread-39] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+09:27:20.789 [VILEAR][Thread-39] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
