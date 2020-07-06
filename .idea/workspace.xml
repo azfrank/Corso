@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="663afb4b-8485-4064-90f5-6565640d5b57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/entity/CourseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/entity/CourseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_Tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_Tables.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
