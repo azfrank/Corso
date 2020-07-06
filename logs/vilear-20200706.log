@@ -1877,7 +1877,10 @@ Caused by: org.postgresql.util.PSQLException: ERRORE: errore di sintassi a o pre
 13:21:52.382 [VILEAR][main] INFO  i.t.v.c.VilearCourseManagerApplication - Started VilearCourseManagerApplication in 11.064 seconds (JVM running for 11.604)
 13:21:52.384 [VILEAR][main] INFO  i.t.v.c.c.u.o.StartupOperation - Check startup operations...
 13:21:52.384 [VILEAR][main] INFO  i.t.v.c.c.u.o.StartupOperation - No startup operations to execute
+<<<<<<< HEAD
 13:33:53.079 [VILEAR][http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
 13:33:53.079 [VILEAR][http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
 13:33:53.094 [VILEAR][http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 15 ms
 13:35:06.216 [VILEAR][http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotAcceptableException: Could not parse 'Accept' header [/]: Invalid mime type "/": does not contain subtype after '/']
+=======
+>>>>>>> FASE-10
