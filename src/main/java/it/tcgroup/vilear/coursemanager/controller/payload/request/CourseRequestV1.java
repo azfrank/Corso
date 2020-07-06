@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.util.Date;
 
 public class CourseRequestV1 {
@@ -31,12 +29,13 @@ public class CourseRequestV1 {
     @JsonProperty("last_change_date")
     private Date lastChangeDate;
 
-
+    @Column(name = "user_id")
+    private String userId;
 
     public CourseRequestV1() {
     }
 
-    public CourseRequestV1(String courseTitle, String userNick, CourseStatusEnum status, Integer maxNumericOfParticipants, Integer numberOfActualParticipants, Date creationCourseDate, Date lastChangeDate) {
+    public CourseRequestV1(String courseTitle, String userNick, CourseStatusEnum status, Integer maxNumericOfParticipants, Integer numberOfActualParticipants, Date creationCourseDate, Date lastChangeDate, String userId) {
         this.courseTitle = courseTitle;
         this.userNick = userNick;
         this.status = status;
@@ -44,6 +43,7 @@ public class CourseRequestV1 {
         this.numberOfActualParticipants = numberOfActualParticipants;
         this.creationCourseDate = creationCourseDate;
         this.lastChangeDate = lastChangeDate;
+        this.userId = userId;
     }
 
     public String getCourseTitle() {
@@ -102,6 +102,14 @@ public class CourseRequestV1 {
         this.lastChangeDate = lastChangeDate;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,7 +126,9 @@ public class CourseRequestV1 {
             return false;
         if (creationCourseDate != null ? !creationCourseDate.equals(that.creationCourseDate) : that.creationCourseDate != null)
             return false;
-        return lastChangeDate != null ? lastChangeDate.equals(that.lastChangeDate) : that.lastChangeDate == null;
+        if (lastChangeDate != null ? !lastChangeDate.equals(that.lastChangeDate) : that.lastChangeDate != null)
+            return false;
+        return userId != null ? userId.equals(that.userId) : that.userId == null;
     }
 
     @Override
@@ -130,6 +140,7 @@ public class CourseRequestV1 {
         result = 31 * result + (numberOfActualParticipants != null ? numberOfActualParticipants.hashCode() : 0);
         result = 31 * result + (creationCourseDate != null ? creationCourseDate.hashCode() : 0);
         result = 31 * result + (lastChangeDate != null ? lastChangeDate.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 
@@ -143,6 +154,7 @@ public class CourseRequestV1 {
                 ", numberOfActualParticipants=" + numberOfActualParticipants +
                 ", creationCourseDate=" + creationCourseDate +
                 ", lastChangeDate=" + lastChangeDate +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

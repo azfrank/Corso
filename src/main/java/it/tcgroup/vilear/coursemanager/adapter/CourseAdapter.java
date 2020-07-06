@@ -5,14 +5,14 @@ import it.tcgroup.vilear.coursemanager.controller.payload.response.CourseRespons
 import it.tcgroup.vilear.coursemanager.controller.payload.response.IdResponseV1;
 import it.tcgroup.vilear.coursemanager.entity.CourseEntity;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public class CourseAdapter {
-
-    @Autowired
-    private AddressAdapter addressAdapter;
+    
 
     public CourseEntity adptCourseRequestToCourse(CourseRequestV1 corso){
 
@@ -55,5 +55,17 @@ public class CourseAdapter {
         courseeResponse.setNumberOfActualParticipants(0);
 
         return courseeResponse;
+    }
+
+    public List<CourseResponseV1> adptCourseToCourseResponse(List<CourseEntity> courseList){
+
+        if(courseList == null)
+            return null;
+
+        List<CourseResponseV1> courseResponseList = new LinkedList<>();
+        for (CourseEntity att : courseList){
+            courseResponseList.add(this.adptCourseToCourseResponse(att));
+        }
+        return courseResponseList;
     }
 }

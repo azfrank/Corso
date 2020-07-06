@@ -41,6 +41,9 @@ public class CourseEntity implements Serializable  {
     @Column(name = "course_title")
     private String courseTitle;
 
+    @Column(name = "user_id")
+    private String userId;
+
     @Column(name = "max_numeric_of_participants")
     private Integer maxNumericOfParticipants;
 
@@ -59,10 +62,11 @@ public class CourseEntity implements Serializable  {
     public CourseEntity() {
     }
 
-    public CourseEntity(UUID id, CourseStatusEnum status, String courseTitle, Integer maxNumericOfParticipants, Date creationCourseDate, Date lastChangeDate, String userNick, Integer numberOfActualParticipants) {
+    public CourseEntity(UUID id, CourseStatusEnum status, String courseTitle, String userId, Integer maxNumericOfParticipants, Date creationCourseDate, Date lastChangeDate, String userNick, Integer numberOfActualParticipants) {
         this.id = id;
         this.status = status;
         this.courseTitle = courseTitle;
+        this.userId = userId;
         this.maxNumericOfParticipants = maxNumericOfParticipants;
         this.creationCourseDate = creationCourseDate;
         this.lastChangeDate = lastChangeDate;
@@ -134,6 +138,14 @@ public class CourseEntity implements Serializable  {
         this.numberOfActualParticipants = numberOfActualParticipants;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -144,6 +156,7 @@ public class CourseEntity implements Serializable  {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (status != that.status) return false;
         if (courseTitle != null ? !courseTitle.equals(that.courseTitle) : that.courseTitle != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (maxNumericOfParticipants != null ? !maxNumericOfParticipants.equals(that.maxNumericOfParticipants) : that.maxNumericOfParticipants != null)
             return false;
         if (creationCourseDate != null ? !creationCourseDate.equals(that.creationCourseDate) : that.creationCourseDate != null)
@@ -159,6 +172,7 @@ public class CourseEntity implements Serializable  {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (courseTitle != null ? courseTitle.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (maxNumericOfParticipants != null ? maxNumericOfParticipants.hashCode() : 0);
         result = 31 * result + (creationCourseDate != null ? creationCourseDate.hashCode() : 0);
         result = 31 * result + (lastChangeDate != null ? lastChangeDate.hashCode() : 0);
@@ -173,6 +187,7 @@ public class CourseEntity implements Serializable  {
                 "id=" + id +
                 ", status=" + status +
                 ", courseTitle='" + courseTitle + '\'' +
+                ", userId='" + userId + '\'' +
                 ", maxNumericOfParticipants=" + maxNumericOfParticipants +
                 ", creationCourseDate=" + creationCourseDate +
                 ", lastChangeDate=" + lastChangeDate +

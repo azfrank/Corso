@@ -12,9 +12,4 @@ import java.util.UUID;
 
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, UUID> {
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE CourseEntity b SET b.id = :userId WHERE b.email = :email")
-    void updateCourseIdByEmail(@Param("email") String email, @Param("userId") UUID userId);
 }

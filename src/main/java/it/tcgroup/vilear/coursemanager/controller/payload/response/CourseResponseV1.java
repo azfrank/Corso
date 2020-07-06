@@ -8,6 +8,12 @@ import java.util.Date;
 
 public class CourseResponseV1 {
 
+    @JsonProperty("id")
+    private String id;
+
+    @JsonProperty("user_id")
+    private String userId;
+
     @JsonProperty("course_title")
     private String courseTitle;
 
@@ -31,12 +37,12 @@ public class CourseResponseV1 {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date lastChangeDate;
 
-
-
     public CourseResponseV1() {
     }
 
-    public CourseResponseV1(String courseTitle, String userNick, CourseStatusEnum status, Integer maxNumericOfParticipants, Integer numberOfActualParticipants, Date creationCourseDate, Date lastChangeDate) {
+    public CourseResponseV1(String id, String userId, String courseTitle, String userNick, CourseStatusEnum status, Integer maxNumericOfParticipants, Integer numberOfActualParticipants, Date creationCourseDate, Date lastChangeDate) {
+        this.id = id;
+        this.userId = userId;
         this.courseTitle = courseTitle;
         this.userNick = userNick;
         this.status = status;
@@ -44,6 +50,22 @@ public class CourseResponseV1 {
         this.numberOfActualParticipants = numberOfActualParticipants;
         this.creationCourseDate = creationCourseDate;
         this.lastChangeDate = lastChangeDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCourseTitle() {
@@ -109,6 +131,8 @@ public class CourseResponseV1 {
 
         CourseResponseV1 that = (CourseResponseV1) o;
 
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (courseTitle != null ? !courseTitle.equals(that.courseTitle) : that.courseTitle != null) return false;
         if (userNick != null ? !userNick.equals(that.userNick) : that.userNick != null) return false;
         if (status != that.status) return false;
@@ -123,7 +147,9 @@ public class CourseResponseV1 {
 
     @Override
     public int hashCode() {
-        int result = courseTitle != null ? courseTitle.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (courseTitle != null ? courseTitle.hashCode() : 0);
         result = 31 * result + (userNick != null ? userNick.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (maxNumericOfParticipants != null ? maxNumericOfParticipants.hashCode() : 0);
@@ -136,7 +162,9 @@ public class CourseResponseV1 {
     @Override
     public String toString() {
         return "CourseResponseV1{" +
-                "courseTitle='" + courseTitle + '\'' +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
                 ", userNick='" + userNick + '\'' +
                 ", status=" + status +
                 ", maxNumericOfParticipants=" + maxNumericOfParticipants +
