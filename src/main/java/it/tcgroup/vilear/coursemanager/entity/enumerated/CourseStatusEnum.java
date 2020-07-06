@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import it.tcgroup.vilear.coursemanager.common.exception.BadParametersException;
 
 public enum CourseStatusEnum {
-    IN_ATTESA_DI_PUBBLICAZIONE("In attesa di pubblicazione"),
-    PUBBLICATO("Pubblicato"),
-    CANCELLATO("Cancellato");
+    IN_CORSO("In corso"),
+    INSERITO("Inserito"),
+    TERMINATO("Terminato");
 
     private String courseType;
 
