@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS course (
 	number_of_actual_participants int,
     creation_course_date DATE,
     last_change_date DATE,
-    status varchar(255)
+    status varchar(255),
+    user_id varchar(255)
 )
