@@ -48,6 +48,10 @@ public class CourseAdapter {
 
         CourseResponseV1 courseeResponse = new CourseResponseV1();
 
+        courseeResponse.setId(course.getId().toString());
+        courseeResponse.setUserId(course.getUserId());
+        courseeResponse.setCreationCourseDate(course.getCreationCourseDate());
+        courseeResponse.setLastChangeDate(course.getLastChangeDate());
         courseeResponse.setCourseTitle(course.getCourseTitle());
         courseeResponse.setMaxNumericOfParticipants(course.getMaxNumericOfParticipants());
         courseeResponse.setStatus(CourseStatusEnum.INSERITO);

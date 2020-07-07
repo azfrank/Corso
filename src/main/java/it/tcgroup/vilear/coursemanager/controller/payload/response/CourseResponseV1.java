@@ -30,11 +30,11 @@ public class CourseResponseV1 {
     private Integer numberOfActualParticipants;
 
     @JsonProperty("creation_course_date")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    @JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private Date creationCourseDate;
 
     @JsonProperty("last_change_date")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    @JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private Date lastChangeDate;
 
     public CourseResponseV1() {

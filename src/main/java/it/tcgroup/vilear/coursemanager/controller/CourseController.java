@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -48,7 +49,7 @@ public class CourseController {
     }
 
     /*Modifica di un corso esistente*/
-    @PatchMapping(value = "/course/{UUID_COURSE}/{user_id}",
+    @PatchMapping(value = "/course/{UUID_COURSE}/{id-user}",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "Upload a part of the Course", notes = "Update a part of the course using the info passed in the body")
@@ -62,7 +63,7 @@ public class CourseController {
     })
     public ResponseEntity<CourseResponseV1> patchCourse(
             @ApiParam(value = "String user logged", required = true)
-            @PathVariable(name = "user_id") String userId,
+            @PathVariable(name = "id-user") String userId,
             @ApiParam(value = "UUID of the Course", required = true)
             @PathVariable(name = "UUID_COURSE") String idCourse,
             @ApiParam(value = "Some attributes of the body of the Course to be modified", required = true)
@@ -70,5 +71,48 @@ public class CourseController {
 
         return new ResponseEntity<>(courseService.patchCourse(coursePatchRequestV1, UUID.fromString(idCourse), userId), HttpStatus.OK);
     }
+
+    /*Recupero di uno specifico corso*/
+    @GetMapping(value = "/course/{UUID_COURSE}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Recover Course", notes = "Returns a Course using the UUID passed in the path")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = CourseResponseV1.class),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 406, message = "Not Acceptable"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    public ResponseEntity<CourseResponseV1> getCourseById(
+            @ApiParam(value = "UUID user logged", required = true)
+            @RequestHeader(name = "id-user") String userId,
+            @ApiParam(value = "UUID of the Course to be founfd", required = true)
+            @PathVariable(name = "UUID_COURSE") String idCourse) {
+
+
+        return new ResponseEntity<>(courseService.getCourse(UUID.fromString(idCourse), userId), HttpStatus.OK);
+    }
+
+    /*Recupero di tutti i corsi*/
+    @GetMapping(value = "/course/all/{id-user}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Recover Course", notes = "Returns a Course using the UUID passed in the path")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = CourseResponseV1.class),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 406, message = "Not Acceptable"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    public ResponseEntity<List<CourseResponseV1>> getAllCourse(
+            @ApiParam(value = "UUID user logged", required = true)
+            @PathVariable(name = "id-user") String userId) {
+
+
+        return new ResponseEntity<>(courseService.getAllCourse(userId), HttpStatus.OK);
+    }
+
 
 }

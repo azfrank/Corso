@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -75,6 +76,42 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.save(course);
 
         return courseAdapter.adptCourseToCourseResponse(course);
+    }
+
+    @Override
+    public CourseResponseV1 getCourse(UUID idCourse,String userId) {
+
+        Optional<CourseEntity> course = courseRepository.findById(idCourse);
+
+        CourseEntity corso = course.get();
+        if (course.isPresent())  {
+            if (corso.getUserId().compareTo(userId) == 0) {
+                return courseAdapter.adptCourseToCourseResponse(corso);
+            }
+        } else
+            throw new NotFoundException("Course with id " + idCourse + " not found");
+
+        return null;
+    }
+
+    @Override
+    public List<CourseResponseV1> getAllCourse(String userId) {
+
+
+
+        List<CourseEntity> courseList = courseEMRepository.getCourseList(userId);
+
+        List<CourseEntity>  courseListFull = courseEMRepository.getCourseList(userId);
+
+
+        for(int i=0; i < courseList.size();i++){
+
+            if (courseList.get(i).getUserId().compareTo(userId) == 0) {
+                courseListFull.add(courseList.get(i));
+            }
+        }
+
+        return courseAdapter.adptCourseToCourseResponse(courseList);
     }
 
 
