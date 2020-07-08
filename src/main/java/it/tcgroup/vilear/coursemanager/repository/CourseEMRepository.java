@@ -57,7 +57,7 @@ public class CourseEMRepository {
         }
 
         if( courseTitle != null){
-            whereCondition.add("b.course_title = '" + courseTitle + "'");
+            whereCondition.add("upper(b.course_title) = upper('" + courseTitle + "')");
         }
 
         if( status != null){

@@ -113,7 +113,10 @@ public class CourseServiceImpl implements CourseService {
                 courseListFull.add(courseList.get(i));
             }
         }
+        if (!courseListFull.isEmpty())
             return courseAdapter.adptCourseToCourseResponse(courseList);
+        else
+            throw new NotFoundException("Nessuna corrispondenza trovata per questo userId");
     }
 
     @Override

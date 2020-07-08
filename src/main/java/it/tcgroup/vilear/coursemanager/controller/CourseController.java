@@ -51,7 +51,7 @@ public class CourseController {
     }
 
     /*Modifica di un corso esistente*/
-    @PatchMapping(value = "/course/{UUID_COURSE}/{id-user}",
+    @PatchMapping(value = "/course/{UUID_COURSE}",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "Upload a part of the Course", notes = "Update a part of the course using the info passed in the body")
@@ -65,7 +65,7 @@ public class CourseController {
     })
     public ResponseEntity<CourseResponseV1> patchCourse(
             @ApiParam(value = "String user logged", required = true)
-            @PathVariable(name = "id-user") String userId,
+            @RequestHeader(name = "id-user") String userId,
             @ApiParam(value = "UUID of the Course", required = true)
             @PathVariable(name = "UUID_COURSE") String idCourse,
             @ApiParam(value = "Some attributes of the body of the Course to be modified", required = true)
