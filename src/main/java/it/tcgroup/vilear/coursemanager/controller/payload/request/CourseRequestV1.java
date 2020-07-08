@@ -1,5 +1,6 @@
 package it.tcgroup.vilear.coursemanager.controller.payload.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 
@@ -24,12 +25,14 @@ public class CourseRequestV1 {
     private Integer numberOfActualParticipants;
 
     @JsonProperty("creation_course_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date creationCourseDate;
 
     @JsonProperty("last_change_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     private Date lastChangeDate;
 
-    @Column(name = "user_id")
+    @JsonProperty("user_id")
     private String userId;
 
     public CourseRequestV1() {
