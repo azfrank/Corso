@@ -21,4 +21,6 @@ public interface CourseService {
     CourseResponseV1 patchStatusCourse(String userId, CourseStatusEnum status, UUID idCourse);
 
     CourseResponseV1 patchPartecipantiCourse(String userId,int max, UUID idCourse);
+
+    void deleteCourse(UUID idCourse, String userId);
 }

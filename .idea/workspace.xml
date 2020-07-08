@@ -34,16 +34,17 @@
   <component name="ChangeListManager">
     <list default="true" id="663afb4b-8485-4064-90f5-6565640d5b57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/vilear-20200707.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/vilear-20200707.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/adapter/CourseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/adapter/CourseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/vilear-20200708.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/vilear-20200708.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/repository/CourseEMRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/repository/CourseEMRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/payload/request/CourseRequestV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/payload/request/CourseRequestV1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/payload/response/CourseResponseV1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/controller/payload/response/CourseResponseV1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/service/CourseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/adapter/CourseAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/adapter/CourseAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_Tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_Tables.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/controller/CourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/controller/CourseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/repository/CourseEMRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/repository/CourseEMRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/controller/payload/response/CourseResponseV1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/controller/payload/response/CourseResponseV1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/CourseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/CourseService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/it/tcgroup/vilear/coursemanager/service/impl/CourseServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,25 +179,25 @@
     </state>
     <state x="655" y="160" key="FileChooserDialogImpl/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594074389351" />
     <state x="466" y="135" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.702@0.27.1366.702" timestamp="1591191784842" />
-    <state width="1877" height="261" key="GridCell.Tab.0.bottom" timestamp="1594197924084">
+    <state width="1877" height="377" key="GridCell.Tab.0.bottom" timestamp="1594202700157">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.bottom/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594197924084" />
+    <state width="1877" height="377" key="GridCell.Tab.0.bottom/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594202700157" />
     <state width="1320" height="358" key="GridCell.Tab.0.bottom/0.27.1366.702@0.27.1366.702" timestamp="1591191785876" />
-    <state width="1877" height="261" key="GridCell.Tab.0.center" timestamp="1594197924084">
+    <state width="1877" height="377" key="GridCell.Tab.0.center" timestamp="1594202700157">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.center/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594197924084" />
+    <state width="1877" height="377" key="GridCell.Tab.0.center/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594202700157" />
     <state width="1320" height="358" key="GridCell.Tab.0.center/0.27.1366.702@0.27.1366.702" timestamp="1591191785875" />
-    <state width="1877" height="261" key="GridCell.Tab.0.left" timestamp="1594197924084">
+    <state width="1877" height="377" key="GridCell.Tab.0.left" timestamp="1594202700157">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.left/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594197924084" />
+    <state width="1877" height="377" key="GridCell.Tab.0.left/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594202700157" />
     <state width="1320" height="358" key="GridCell.Tab.0.left/0.27.1366.702@0.27.1366.702" timestamp="1591191785875" />
-    <state width="1877" height="261" key="GridCell.Tab.0.right" timestamp="1594197924084">
+    <state width="1877" height="377" key="GridCell.Tab.0.right" timestamp="1594202700157">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="261" key="GridCell.Tab.0.right/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594197924084" />
+    <state width="1877" height="377" key="GridCell.Tab.0.right/-1920.295.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1594202700157" />
     <state width="1320" height="358" key="GridCell.Tab.0.right/0.27.1366.702@0.27.1366.702" timestamp="1591191785876" />
     <state width="1877" height="261" key="GridCell.Tab.1.bottom" timestamp="1594197924084">
       <screen x="0" y="0" width="1920" height="1040" />

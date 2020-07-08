@@ -9,6 +9,7 @@ import it.tcgroup.vilear.coursemanager.controller.payload.response.CourseRespons
 import it.tcgroup.vilear.coursemanager.controller.payload.response.IdResponseV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.PaginationResponseV1;
 import it.tcgroup.vilear.coursemanager.entity.CourseEntity;
+import it.tcgroup.vilear.coursemanager.entity.CourseEntity;
 import it.tcgroup.vilear.coursemanager.entity.Pagination;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 import it.tcgroup.vilear.coursemanager.repository.CourseEMRepository;
@@ -193,9 +194,7 @@ public class CourseServiceImpl implements CourseService {
         CourseEntity course = optCourse.get();
 
         if ( course.getUserId().compareTo(userId) == 0) {
-            System.out.println("afdaaaaaaaaaaaaaaaaaaaa");
             if (course.getMaxNumericOfParticipants() >= max){
-                System.out.println("asfaegbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
                 course.setNumberOfActualParticipants(max);
                 course.setLastChangeDate(new Date());
 
@@ -206,8 +205,33 @@ public class CourseServiceImpl implements CourseService {
                 throw new NotFoundException("Numero massimo di partecipanti inferiore al numero di partecipanti che si vuole inserire");
         }else
             throw new NotFoundException("Non sei tu l'user che gestisce il corso");
+    }
 
+    @Override
+    public void deleteCourse(UUID idCourse, String userId){
 
+        Optional<CourseEntity> optCourse = courseRepository.findById(idCourse);
+
+        if (optCourse.isPresent()) {
+            CourseEntity course = optCourse.get();
+            if (course.getUserId().compareTo(userId) == 0) {
+                if (course.getStatus() == CourseStatusEnum.TERMINATO) {
+                    @Deprecated
+                    int x = new Date().getYear();
+                    @Deprecated
+                    int y = course.getLastChangeDate().getYear();
+                    System.out.println(x + "" + y );
+                    if (x-y >= 1) {
+                        courseRepository.delete(course);
+                    } else
+                        throw new NotFoundException("Ultimo update meno di 1 anno fa");
+                }else
+                    throw new NotFoundException("Corso non terminato");
+            }else
+                throw new NotFoundException("Non sei tu l'user che gestisce il corso");
+        }
+        else
+            throw new NotFoundException("Course with uuid: " + idCourse + " isn't present ");
     }
     
 }
