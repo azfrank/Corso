@@ -1,25 +1,26 @@
 package it.tcgroup.vilear.coursemanager.service.impl;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import it.tcgroup.vilear.coursemanager.adapter.CourseAdapter;
 import it.tcgroup.vilear.coursemanager.common.exception.NotFoundException;
 import it.tcgroup.vilear.coursemanager.controller.payload.request.CourseRequestV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.CourseResponseV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.IdResponseV1;
+import it.tcgroup.vilear.coursemanager.controller.payload.response.PaginationResponseV1;
 import it.tcgroup.vilear.coursemanager.entity.CourseEntity;
+import it.tcgroup.vilear.coursemanager.entity.Pagination;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 import it.tcgroup.vilear.coursemanager.repository.CourseEMRepository;
 import it.tcgroup.vilear.coursemanager.repository.CourseRepository;
 import it.tcgroup.vilear.coursemanager.service.CourseService;
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Transactional
 @Service
@@ -68,14 +69,15 @@ public class CourseServiceImpl implements CourseService {
                     course.setCourseTitle(coursePatch.getCourseTitle());
 
                 course.setLastChangeDate(new Date());
+
+                courseRepository.save(course);
+
+                return courseAdapter.adptCourseToCourseResponse(course);
             } else
                 throw new NotFoundException("Course is not INSERITO");
         }else
             throw new NotFoundException("Non sei tu l'user che gestisce il corso");
 
-        courseRepository.save(course);
-
-        return courseAdapter.adptCourseToCourseResponse(course);
     }
 
     @Override
@@ -83,15 +85,15 @@ public class CourseServiceImpl implements CourseService {
 
         Optional<CourseEntity> course = courseRepository.findById(idCourse);
 
-        CourseEntity corso = course.get();
         if (course.isPresent())  {
+            CourseEntity corso = course.get();
             if (corso.getUserId().compareTo(userId) == 0) {
                 return courseAdapter.adptCourseToCourseResponse(corso);
-            }
+            } else
+                throw new NotFoundException("Non sei tu l'user che gestisce il corso");
         } else
-            throw new NotFoundException("Course with id " + idCourse + " not found");
+            throw new NotFoundException("Corso non trovato");
 
-        return null;
     }
 
     @Override
@@ -110,9 +112,102 @@ public class CourseServiceImpl implements CourseService {
                 courseListFull.add(courseList.get(i));
             }
         }
-
-        return courseAdapter.adptCourseToCourseResponse(courseList);
+            return courseAdapter.adptCourseToCourseResponse(courseList);
     }
 
+    @Override
+    public PaginationResponseV1<CourseResponseV1> getCoursePagination(int page, int pageSize, String courseTitle, CourseStatusEnum status, String userId){
 
+        Pagination<CourseEntity> coursePagination = new Pagination<>();
+
+        List<CourseEntity> courseList = courseEMRepository.getCourseForPagination(userId, courseTitle, status);
+
+        coursePagination.setStats(new PaginationResponseV1.InfoPagination(courseList.size(), page, pageSize));
+
+        int start = coursePagination.getStats().getStartPage();
+        int count = 0;
+        List<CourseEntity> courseForPagination = new LinkedList<>();
+
+        while (count < coursePagination.getStats().getPageSize() && ((start - 1) + count) < courseList.size()) {
+            courseForPagination.add((courseList.get((start - 1) + count)));
+            count++;
+        }
+
+        coursePagination.setItems(courseForPagination);
+
+        return courseAdapter.adpCoursePaginationToCoursePaginationResponse(coursePagination);
+    }
+
+    @Modifying
+    @Override
+    public CourseResponseV1 patchStatusCourse(String userId, CourseStatusEnum status, UUID idCourse){
+
+        Optional<CourseEntity> optCourse = courseRepository.findById(idCourse);
+        if(!optCourse.isPresent()){
+            throw new NotFoundException("Course with id " + idCourse+ " not found");
+        }
+        CourseEntity course = optCourse.get();
+
+        if ( course.getUserId().compareTo(userId) == 0) {
+            if(course.getMaxNumericOfParticipants() == course.getNumberOfActualParticipants()) {
+
+                switch (status) {
+                    case IN_CORSO:
+                        if (course.getStatus() == CourseStatusEnum.INSERITO) {
+                            course.setStatus(CourseStatusEnum.IN_CORSO);
+                            course.setLastChangeDate(new Date());
+
+                            courseRepository.save(course);
+
+                            return courseAdapter.adptCourseToCourseResponse(course);
+                        } else
+                            throw new NotFoundException("Impossibile cambiare il corso da " + course.getStatus().toString() + " a " + CourseStatusEnum.INSERITO.toString());
+
+                    case TERMINATO:
+                        if (course.getStatus() == CourseStatusEnum.IN_CORSO) {
+                            course.setStatus(CourseStatusEnum.TERMINATO);
+                            course.setLastChangeDate(new Date());
+                            courseRepository.save(course);
+
+                            return courseAdapter.adptCourseToCourseResponse(course);
+                        } else
+                            throw new NotFoundException("Impossibile cambiare il corso da " + course.getStatus().toString() + " a " + CourseStatusEnum.TERMINATO.toString());
+
+                }
+            } else
+                throw new NotFoundException("Il numero di partecipanti non ha raggiunto il massimo");
+        }else
+            throw new NotFoundException("Non sei tu l'user che gestisce il corso");
+
+        return null;
+    }
+
+    @Modifying
+    @Override
+    public CourseResponseV1 patchPartecipantiCourse(String userId,int max, UUID idCourse){
+
+        Optional<CourseEntity> optCourse = courseRepository.findById(idCourse);
+        if(!optCourse.isPresent()){
+            throw new NotFoundException("Course with id " + idCourse+ " not found");
+        }
+        CourseEntity course = optCourse.get();
+
+        if ( course.getUserId().compareTo(userId) == 0) {
+            System.out.println("afdaaaaaaaaaaaaaaaaaaaa");
+            if (course.getMaxNumericOfParticipants() >= max){
+                System.out.println("asfaegbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                course.setNumberOfActualParticipants(max);
+                course.setLastChangeDate(new Date());
+
+                courseRepository.save(course);
+
+                return courseAdapter.adptCourseToCourseResponse(course);
+            }else
+                throw new NotFoundException("Numero massimo di partecipanti inferiore al numero di partecipanti che si vuole inserire");
+        }else
+            throw new NotFoundException("Non sei tu l'user che gestisce il corso");
+
+
+    }
+    
 }

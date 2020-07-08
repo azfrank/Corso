@@ -4,6 +4,8 @@ import io.swagger.annotations.*;
 import it.tcgroup.vilear.coursemanager.controller.payload.request.CourseRequestV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.CourseResponseV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.IdResponseV1;
+import it.tcgroup.vilear.coursemanager.controller.payload.response.PaginationResponseV1;
+import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 import it.tcgroup.vilear.coursemanager.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -114,5 +116,78 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getAllCourse(userId), HttpStatus.OK);
     }
 
+    /*Rotta per la paginazione*/
+    @GetMapping(value = "/course",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get all filiali", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = PaginationResponseV1.class),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 406, message = "Not Acceptable"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    public ResponseEntity<PaginationResponseV1<CourseResponseV1>> getCoursePagination(
+            @ApiParam(value = "String user logged", required = true)
+            @RequestParam(name = "id-user", required = true) String userId,
+            @ApiParam(value = "Defines how many Discenti can contain the single page", required = false)
+            @RequestParam(value = "page_size", defaultValue = "20") Integer page_size,
+            @ApiParam(value = "Defines the page number to be displayed", required = false)
+            @RequestParam(value = "page", defaultValue = "1") Integer page,
+            @ApiParam(value = "", required = false)
+            @RequestParam(value = "course_title", required = false) String courseTitle,
+            @ApiParam(value = "", required = false)
+            @RequestParam(value = "status", required = false) CourseStatusEnum status ) {
+
+
+        return new ResponseEntity<>(courseService.getCoursePagination(page, page_size, courseTitle, status, userId),HttpStatus.OK);
+    }
+
+    /*Cambio stato del corso*/
+    @PatchMapping(value = "/course/due/{UUID_COURSE}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get all filiali", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = PaginationResponseV1.class),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 406, message = "Not Acceptable"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    public ResponseEntity<CourseResponseV1> patchStatusCourse(
+            @ApiParam(value = "String user logged", required = true)
+            @RequestParam(name = "id-user") String userId,
+            @ApiParam(value = "UUID of the Course", required = true)
+            @PathVariable(name = "UUID_COURSE") String idCourse,
+            @ApiParam(value = "", required = false)
+            @RequestParam(value = "status", required = false) CourseStatusEnum status) throws Exception {
+
+        return new ResponseEntity<>(courseService.patchStatusCourse(userId,status,UUID.fromString(idCourse)), HttpStatus.OK);
+    }
+
+    /*Aggiunta di partecipanti*/
+    @PatchMapping(value = "/course/add/{UUID_COURSE}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get all filiali", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = PaginationResponseV1.class),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 406, message = "Not Acceptable"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    public ResponseEntity<CourseResponseV1> patchStatusCourse(
+            @ApiParam(value = "String user logged", required = true)
+            @RequestParam(name = "id-user") String userId,
+            @ApiParam(value = "Partecipanti attuali", required = true)
+            @PathVariable(name = "UUID_COURSE") String idCourse,
+            @ApiParam(value = "Partecipanti attuali", required = false)
+            @RequestParam(value = "number_of_actual_participants", required = false) int max) throws Exception {
+
+        return new ResponseEntity<>(courseService.patchPartecipantiCourse(userId,max,UUID.fromString(idCourse)), HttpStatus.OK);
+    }
 
 }
