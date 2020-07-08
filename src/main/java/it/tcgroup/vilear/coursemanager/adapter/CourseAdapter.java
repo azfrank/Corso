@@ -3,7 +3,9 @@ package it.tcgroup.vilear.coursemanager.adapter;
 import it.tcgroup.vilear.coursemanager.controller.payload.request.CourseRequestV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.CourseResponseV1;
 import it.tcgroup.vilear.coursemanager.controller.payload.response.IdResponseV1;
+import it.tcgroup.vilear.coursemanager.controller.payload.response.PaginationResponseV1;
 import it.tcgroup.vilear.coursemanager.entity.CourseEntity;
+import it.tcgroup.vilear.coursemanager.entity.Pagination;
 import it.tcgroup.vilear.coursemanager.entity.enumerated.CourseStatusEnum;
 import org.springframework.stereotype.Component;
 
@@ -54,9 +56,9 @@ public class CourseAdapter {
         courseeResponse.setLastChangeDate(course.getLastChangeDate());
         courseeResponse.setCourseTitle(course.getCourseTitle());
         courseeResponse.setMaxNumericOfParticipants(course.getMaxNumericOfParticipants());
-        courseeResponse.setStatus(CourseStatusEnum.INSERITO);
+        courseeResponse.setStatus(course.getStatus());
         courseeResponse.setUserNick(course.getUserNick());
-        courseeResponse.setNumberOfActualParticipants(0);
+        courseeResponse.setNumberOfActualParticipants(course.getNumberOfActualParticipants());
 
         return courseeResponse;
     }
@@ -72,4 +74,19 @@ public class CourseAdapter {
         }
         return courseResponseList;
     }
+
+    public PaginationResponseV1<CourseResponseV1> adpCoursePaginationToCoursePaginationResponse(Pagination<CourseEntity> coursePagination){
+
+        if(coursePagination == null)
+            return null;
+
+        PaginationResponseV1<CourseResponseV1> coursePaginationResponse = new PaginationResponseV1<>();
+
+        coursePaginationResponse.setItems(this.adptCourseToCourseResponse(coursePagination.getItems()));
+        coursePaginationResponse.setStats(coursePagination.getStats());
+
+        return coursePaginationResponse;
+    }
+
+
 }
